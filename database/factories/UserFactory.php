@@ -26,10 +26,33 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
+            'status' => fake()->randomElement(['activated', 'deactivated']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'profile_photo' => fake()->imageUrl(200, 200, 'people'),
+            'config' => [
+                'theme' => fake()->randomElement(['light', 'dark']),
+                'language' => fake()->randomElement(['pt-BR', 'en-US', 'es-ES']),
+                'notifications' => fake()->boolean(),
+                'timezone' => fake()->timezone(),
+            ],
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function activated(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'activated',
+        ]);
+    }
+
+    public function deactivated(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'deactivated',
+        ]);
     }
 
     /**

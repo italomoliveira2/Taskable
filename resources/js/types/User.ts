@@ -11,7 +11,3 @@ export type User = {
     updated_at: string;
     [key: string]: unknown; 
 };
-
-export type Auth = {
-    user: User;
-};
