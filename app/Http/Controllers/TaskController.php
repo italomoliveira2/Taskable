@@ -17,10 +17,10 @@ class TaskController extends Controller
         $user = User::query()->where('id', '=', 1)->first();
 
         $search     = $request->query('q');
-        $priority   = $request->query('priority');
-        $status     = $request->query('status');
         $startDate  = $request->query('startDate');
         $endDate    = $request->query('endDate');
+        $priority = $request->query('priority') === 'empty' ? null : $request->query('priority');
+        $status   = $request->query('status') === 'empty' ? null : $request->query('status');
 
         $tasks = Task::query()
             ->when($search, function ($q) use ($search) {

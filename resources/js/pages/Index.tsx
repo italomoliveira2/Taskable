@@ -1,5 +1,6 @@
 import { usePage, router } from "@inertiajs/react";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import ClearIcon from '@mui/icons-material/Clear';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
 import AppLayout from "@/components/AppLayout";
@@ -7,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X } from "lucide-react";
 
 import {
     Pagination,
@@ -96,7 +96,7 @@ type PageProps = {
 
 export default function Index() {
 
-    const { user, tasks } = usePage<PageProps>().props
+    const { tasks } = usePage<PageProps>().props
     const [range, setRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>(undefined)
     const [query, setQuery] = useState("")
     const [taskPriority, setTaskPriority] = useState("")
@@ -128,7 +128,7 @@ export default function Index() {
         <AppLayout>
 
             <div className="flex items-center justify-between space-x-4">
-                <div className="flex flex-1 items-center justify-between *:gap-2 space-x-4">
+                <div className="flex flex-1 items-center justify-between *:gap-2 space-x-2">
                     <div className="flex flex-col w-[40%]">
                         <Label>
                             Pesquisa:
@@ -136,44 +136,44 @@ export default function Index() {
                         <Input value={query} onChange={(e) => setQuery(e.target.value)} />
                     </div>
                     <div className="flex flex-col w-[20%]">
-<Label>
-    Periodo
-</Label>
-<div className="flex items-center gap-2">
-    <Popover>
-        <PopoverTrigger asChild>
-            <Button variant='outline'>
-                <CalendarTodayIcon className="w-4 h-4" />
-                {range?.from && range?.to
-                    ? `${range.from.toLocaleDateString('pt-BR')} - ${range.to.toLocaleDateString('pt-BR')}`
-                    : 'Selecione o período'}
-            </Button>
-        </PopoverTrigger>
-        <PopoverContent className='w-auto overflow-hidden p-0' align='end'>
-            <Calendar
-                className='w-full'
-                mode='range'
-                defaultMonth={range?.from}
-                selected={range}
-                onSelect={handleSelectRange}
-                disabled={{
-                    after: new Date(),
-                }}
-            />
-        </PopoverContent>
-    </Popover>
+                        <Label>
+                            Periodo
+                        </Label>
+                        <div className="flex items-center w-full">
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button variant='outline'>
+                                        <CalendarTodayIcon className="w-4 h-4" />
+                                        {range?.from && range?.to
+                                            ? `${range.from.toLocaleDateString('pt-BR')} - ${range.to.toLocaleDateString('pt-BR')}`
+                                            : 'Selecione o período'}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className='w-auto overflow-hidden p-0' align='end'>
+                                    <Calendar
+                                        className='w-full'
+                                        mode='range'
+                                        defaultMonth={range?.from}
+                                        selected={range}
+                                        onSelect={handleSelectRange}
+                                        disabled={{
+                                            after: new Date(),
+                                        }}
+                                    />
+                                </PopoverContent>
+                            </Popover>
 
-    {range?.from && range?.to && (
-        <Button
-            variant="ghost"
-            size="icon"
-            className="size-8 text-muted-foreground"
-            onClick={() => setRange(undefined)}
-        >
-            <X className="w-4 h-4" />
-        </Button>
-    )}
-</div>
+                            {range?.from && range?.to && (
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="size-6 text-muted-foreground"
+                                    onClick={() => setRange(undefined)}
+                                >
+                                    <ClearIcon className="w-3 h-3" />
+                                </Button>
+                            )}
+                        </div>
 
 
                     </div>
@@ -183,7 +183,7 @@ export default function Index() {
                         </Label>
                         <Select value={taskStatus} onValueChange={setTaskStatus}>
                             <SelectTrigger className="w-full max-w-48">
-                                <SelectValue placeholder="Selecione a prioridade" />
+                                <SelectValue placeholder="" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
@@ -202,7 +202,7 @@ export default function Index() {
                         </Label>
                         <Select value={taskPriority} onValueChange={setTaskPriority}>
                             <SelectTrigger className="w-full max-w-48">
-                                <SelectValue placeholder="Selecione a prioridade" />
+                                <SelectValue placeholder="" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
