@@ -91,6 +91,15 @@
         var(--sidebar-ring);
 }
 
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 :root {
     --radius:
         0.625rem;
