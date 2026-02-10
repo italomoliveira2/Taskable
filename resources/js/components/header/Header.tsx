@@ -23,9 +23,9 @@ export default function Header() {
                         <DropdownMenuTrigger asChild>
                             <div className="flex items-center gap-3 cursor-pointer hover:bg-slate-800 p-2 rounded-xl">
                                 <span>Italo Oliveira</span>
-                                <Avatar className="border border-white">
+                                <Avatar className="border-2 border-white">
                                     <AvatarImage />
-                                    <AvatarFallback className="bg-orange-400">
+                                    <AvatarFallback className="bg-orange-400 font-semibold text-black">
                                         IO
                                     </AvatarFallback>
                                 </Avatar>

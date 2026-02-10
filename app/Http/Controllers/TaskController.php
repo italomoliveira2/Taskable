@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -15,8 +15,8 @@ class TaskController extends Controller
     public function index()
     {
         $user = User::query()->where('id', '=', 1)->first();
-        
-        $tasks = $user->tasks()->get()->toArray();
+
+        $tasks = Task::paginate(15);
 
         return Inertia::render('Index', [
             'user' => $user,
@@ -27,10 +27,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        
-    }
+    public function store(Request $request) {}
 
     /**
      * Update the specified resource in storage.
