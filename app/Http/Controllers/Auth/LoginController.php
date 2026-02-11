@@ -13,8 +13,8 @@ class LoginController extends Controller
         return Inertia::render("Auth/Login");
     }
 
-    public function login()
+    public function login(Request $request)
     {
-
+        dd("chegou");
     }
 }
