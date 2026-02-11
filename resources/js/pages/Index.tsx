@@ -167,7 +167,7 @@ export default function Index() {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="size-6 text-muted-foreground"
+                                    className="size-4 text-muted-foreground"
                                     onClick={() => setRange(undefined)}
                                 >
                                     <ClearIcon className="w-3 h-3" />
