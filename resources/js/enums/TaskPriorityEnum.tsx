@@ -1,5 +1,5 @@
-export enum TaskPriority {
-    EMPTY = " ",
+export enum TaskPriorityEnum {
+    EMPTY = "-",
     LOW = 'low',
     MEDIUM = 'medium',
     HIGH = 'high',
@@ -7,5 +7,5 @@ export enum TaskPriority {
 }
 
 export function getTaskPriorityValues(): string[] {
-    return Object.values(TaskPriority);
+    return Object.values(TaskPriorityEnum);
 }

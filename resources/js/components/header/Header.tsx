@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+import { logout } from "@/actions/App/Http/Controllers/Auth/LogoutController";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -35,8 +37,16 @@ export default function Header() {
                             <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>Perfil</DropdownMenuItem>
-                                <DropdownMenuItem>Sair</DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Link href={"#"}>Perfil</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>    <Link
+                                    href={logout.url()}
+                                    method="post"
+                                    as="button"
+                                >
+                                    Sair
+                                </Link></DropdownMenuItem>
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>

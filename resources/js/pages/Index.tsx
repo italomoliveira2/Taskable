@@ -3,7 +3,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
-import AppLayout from "@/components/AppLayout";
+import AppLayout from "@/components/Layouts/AppLayout";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -36,8 +36,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-import { getTaskPriorityValues } from "@/enums/TaskPriorityEnum";
-import { getTaskStatusValues } from "@/enums/TaskStatusEnum";
+import { getTaskPriorityValues, TaskPriorityEnum } from "@/enums/TaskPriorityEnum";
+import { getTaskStatusValues, TaskStatusEnum } from "@/enums/TaskStatusEnum";
 
 type Task = {
     id: number
@@ -99,8 +99,8 @@ export default function Index() {
     const { tasks } = usePage<PageProps>().props
     const [range, setRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>(undefined)
     const [query, setQuery] = useState("")
-    const [taskPriority, setTaskPriority] = useState("")
-    const [taskStatus, setTaskStatus] = useState("")
+    const [taskPriority, setTaskPriority] = useState<TaskPriorityEnum>(TaskPriorityEnum.EMPTY)
+    const [taskStatus, setTaskStatus] = useState<TaskStatusEnum>(TaskStatusEnum.EMPTY)
 
     useEffect(() => {
         router.get(
@@ -136,13 +136,13 @@ export default function Index() {
                         <Input value={query} onChange={(e) => setQuery(e.target.value)} />
                     </div>
                     <div className="flex flex-col w-[20%]">
-                        <Label>
+                        <Label className="text-center">
                             Periodo
                         </Label>
-                        <div className="flex items-center w-full">
+                        <div className="flex items-center w-full justify-between space-x-2">
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant='outline'>
+                                    <Button variant='outline' className=" w-full flex-1">
                                         <CalendarTodayIcon className="w-4 h-4" />
                                         {range?.from && range?.to
                                             ? `${range.from.toLocaleDateString('pt-BR')} - ${range.to.toLocaleDateString('pt-BR')}`
@@ -163,16 +163,18 @@ export default function Index() {
                                 </PopoverContent>
                             </Popover>
 
-                            {range?.from && range?.to && (
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="size-4 text-muted-foreground"
-                                    onClick={() => setRange(undefined)}
-                                >
-                                    <ClearIcon className="w-3 h-3" />
-                                </Button>
-                            )}
+                            <div className="bg-amber-100 flex items-center justify-center w-fit">
+                                {range?.from && range?.to && (
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="size-4 text-muted-foreground"
+                                        onClick={() => setRange(undefined)}
+                                    >
+                                        <ClearIcon className="w-3 h-3" />
+                                    </Button>
+                                )}
+                            </div>
                         </div>
 
 
@@ -181,7 +183,7 @@ export default function Index() {
                         <Label>
                             Status
                         </Label>
-                        <Select value={taskStatus} onValueChange={setTaskStatus}>
+                        <Select value={taskStatus} onValueChange={(value) => setTaskStatus(value as TaskStatusEnum)}>
                             <SelectTrigger className="w-full max-w-48">
                                 <SelectValue placeholder="" />
                             </SelectTrigger>
@@ -189,7 +191,7 @@ export default function Index() {
                                 <SelectGroup>
                                     {getTaskStatusValues().map((status) => (
                                         <SelectItem key={status} value={status}>
-                                            {status}
+                                            {status === "-" ? "-" : status.replace("_", " ")}
                                         </SelectItem>
                                     ))}
                                 </SelectGroup>
@@ -200,7 +202,7 @@ export default function Index() {
                         <Label>
                             Prioridade
                         </Label>
-                        <Select value={taskPriority} onValueChange={setTaskPriority}>
+                        <Select value={taskPriority} onValueChange={(value) => setTaskPriority(value as TaskPriorityEnum)}>
                             <SelectTrigger className="w-full max-w-48">
                                 <SelectValue placeholder="" />
                             </SelectTrigger>
@@ -223,7 +225,7 @@ export default function Index() {
                 </div>
             </div>
 
-            <div className="space-y-8">
+            <div className="px-12">
                 <Table className="table-fixed w-full">
                     <TableHeader>
                         <TableRow>
