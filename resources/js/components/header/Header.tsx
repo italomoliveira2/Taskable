@@ -9,13 +9,15 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Logo from "@/svgs/logo.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function Header() {
     return (
-        <header className="bg-slate-900 flex justify-between py-2 px-5 text-white">
+        <header className="bg-slate-950 flex justify-between py-2 px-4 text-white">
             <div className="flex items-center">
-                <a href="/">
+                <a href="/" className="flex items-end gap-2">
+                    <img src={Logo} className="size-10"/>
                     <h1 className="text-gray-200 text-3xl font-bold">Taskable</h1>
                 </a>
             </div>

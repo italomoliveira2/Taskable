@@ -48,7 +48,7 @@ class TaskController extends Controller
             })
             ->paginate(15);
 
-        return Inertia::render('Index', [
+        return Inertia::render('home/index', [
             'user' => $user,
             'tasks' => $tasks
         ]);

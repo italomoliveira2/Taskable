@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import {
     Pagination,
     PaginationContent,
@@ -18,15 +17,12 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
-
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectGroup, SelectItem } from "@/components/ui/select";
-
 import {
     Table,
     TableBody,
@@ -35,9 +31,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-
 import { getTaskPriorityValues, TaskPriorityEnum } from "@/enums/TaskPriorityEnum";
 import { getTaskStatusValues, TaskStatusEnum } from "@/enums/TaskStatusEnum";
+import NewTask from "./components/NewTask";
+import { Badge } from "@/components/ui/badge";
+
 
 type Task = {
     id: number
@@ -163,7 +161,7 @@ export default function Index() {
                                 </PopoverContent>
                             </Popover>
 
-                            <div className="bg-amber-100 flex items-center justify-center w-fit">
+                            <div className="flex items-center justify-center w-fit">
                                 {range?.from && range?.to && (
                                     <Button
                                         variant="ghost"
@@ -219,9 +217,7 @@ export default function Index() {
                     </div>
                 </div>
                 <div className="flex items-end justify-center w-[10%] h-14 ">
-                    <Button>
-                        Nova tarefa
-                    </Button>
+                    <NewTask/>
                 </div>
             </div>
 
@@ -231,9 +227,9 @@ export default function Index() {
                         <TableRow>
                             <TableHead className="w-[8%]">N°</TableHead>
                             <TableHead className="w-[44%]">Título</TableHead>
-                            <TableHead className="w-[14%]">Data</TableHead>
-                            <TableHead className="w-[14%]">Status</TableHead>
-                            <TableHead className="w-[14%]">Prioridade</TableHead>
+                            <TableHead className="w-[14%] text-center">Data</TableHead>
+                            <TableHead className="w-[14%] text-center">Status</TableHead>
+                            <TableHead className="w-[14%] text-center">Prioridade</TableHead>
                             <TableHead className="w-[6%]" />
                         </TableRow>
                     </TableHeader>
@@ -250,19 +246,29 @@ export default function Index() {
                                 <TableRow key={task.id}>
                                     <TableCell className="w-[8%]">{task.number}</TableCell>
                                     <TableCell className="w-[44%]">{task.title}</TableCell>
-                                    <TableCell className="w-[14%]">
+                                    <TableCell className="w-[14%] text-center">
                                         {new Date(task.created_at).toLocaleDateString("pt-BR")}
                                     </TableCell>
-                                    <TableCell className="w-[14%]">{task.status}</TableCell>
-                                    <TableCell className="w-[14%]">{task.priority}</TableCell>
+                                    <TableCell className="w-[14%] text-center">{task.status}</TableCell>
+                                    <TableCell className="w-[14%] text-center">
+                                        <Badge>{task.priority}</Badge>
+                                    </TableCell>
                                     <TableCell className="w-[6%]">
                                         <Button
                                             className="size-8"
-                                            variant="destructive"
+                                            variant="ghost"
                                             onClick={() => alert("deletar tarefa")}
                                         >
-                                            <DeleteIcon />
+                                            <DeleteIcon className="text-red-500" />
                                         </Button>
+                                        <Button
+                                            className="size-8"
+                                            variant="ghost"
+                                            onClick={() => alert("deletar tarefa")}
+                                        >
+                                            <DeleteIcon className="text-red-500" />
+                                        </Button>
+
                                     </TableCell>
                                 </TableRow>
                             ))
