@@ -28,6 +28,19 @@ class Task extends Model
         'priority' => TaskPriorityEnum::class,
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($task) {
+
+            $lastNumber = self::max('number');
+
+            $task->number = $lastNumber
+                ? $lastNumber + 1
+                : 1000;
+
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
